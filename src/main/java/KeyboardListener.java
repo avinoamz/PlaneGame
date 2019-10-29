@@ -1,23 +1,24 @@
 
-import GameObjcets.Boat;
+import GameObjects.Boat;
+import GameObjects.GameObject;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
- * @author avino
+ * listens to keyboard input and updates the sprites accordingly
  */
 public class KeyboardListener implements KeyListener {
 
     Boat boat;
 
-    public KeyboardListener(Boat boat) {
-        this.boat = boat;
+    public KeyboardListener(ArrayList<GameObject> gameObjects) {
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject instanceof Boat) {
+                this.boat = (Boat) gameObject;
+            }
+        }
     }
 
     @Override

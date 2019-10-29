@@ -1,51 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GameObjcets;
+package GameObjects;
 
 import GameData.GameData;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
  *
- * @author avino
+ * Represents a Plane
  */
 public class Plane implements GameObject {
 
+    private final static String planeImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\plane.png";
     private int x;
     private int y;
+    private final int startingPosition;
     private BufferedImage image;
 
     public Plane() {
         try {
-            image = ImageIO.read(new File("C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\plane.png"));
+            image = ImageIO.read(new File(planeImage));
         } catch (IOException e) {
 
         }
-        this.x = GameData.getWindowXSize() - image.getWidth();
+        startingPosition = GameData.getInstance().getWindowXSize() - image.getWidth();
+        this.x = startingPosition;
         this.y = 10;
     }
 
     @Override
     public void move() {
         x -= 2;
-        if (x - 2 < 30) {
-            x = GameData.getWindowXSize();
+        if (x - 2 < 0) {
+            x = startingPosition;
         }
     }
 
     @Override
-    public void draw(Graphics2D g, ImageObserver o) {
-        g.drawImage(image, this.x, this.y, o);
-    }
-
     public int getX() {
         return x;
     }
@@ -54,6 +46,7 @@ public class Plane implements GameObject {
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
@@ -62,12 +55,18 @@ public class Plane implements GameObject {
         this.y = y;
     }
 
+    @Override
     public BufferedImage getImage() {
         return image;
     }
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    @Override
+    public boolean needToRemove() {
+        return false;
     }
 
 }

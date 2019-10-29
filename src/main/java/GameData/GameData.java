@@ -7,47 +7,106 @@ package GameData;
 
 /**
  *
- * @author avino
+ * Responsible for holding the data of the game.
+ * Singleton
  */
 public class GameData {
 
-    static int lives = 3;
-    static int score = 0;
-    static int windowXSize = 1080;
-    static int windowYSize = 720;
-//    static int seaHeight = 100;
+    private static GameData instance = null;
 
-    public static int getLives() {
+    private int lives;
+    private int score;
+    private int windowXSize;
+    private int windowYSize;
+    private int seaHeight;
+    private int maxParachuters;
+    private int currentParachuters;
+
+    private GameData() {
+        this.lives = 3;
+        this.score = 0;
+        this.windowXSize = 1080;
+        this.windowYSize = 720;
+        this.seaHeight = 242;
+        this.maxParachuters = 3;
+        this.currentParachuters = 0;
+    }
+
+    public static GameData getInstance() {
+        if (instance == null) {
+            instance = new GameData();
+        }
+        return instance;
+    }
+
+    public void addParachutist() {
+        currentParachuters++;
+    }
+
+    public void parachuterDrowned() {
+        currentParachuters--;
+        lives--;
+    }
+
+    public void parachuterCatched() {
+        currentParachuters--;
+        score += 10;
+    }
+
+    public int getLives() {
         return lives;
     }
 
-    public static void setLives(int lives) {
-        GameData.lives = lives;
+    public void setLives(int lives) {
+        this.lives = lives;
     }
 
-    public static int getScore() {
+    public int getScore() {
         return score;
     }
 
-    public static void setScore(int score) {
-        GameData.score = score;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    public static int getWindowXSize() {
+    public int getWindowXSize() {
         return windowXSize;
     }
 
-    public static void setWindowXSize(int windowXSize) {
-        GameData.windowXSize = windowXSize;
+    public void setWindowXSize(int windowXSize) {
+        this.windowXSize = windowXSize;
     }
 
-    public static int getWindowYSize() {
+    public int getWindowYSize() {
         return windowYSize;
     }
 
-    public static void setWindowYSize(int windowYSize) {
-        GameData.windowYSize = windowYSize;
-    } 
-   
+    public void setWindowYSize(int windowYSize) {
+        this.windowYSize = windowYSize;
+    }
+
+    public int getSeaHeight() {
+        return seaHeight;
+    }
+
+    public void setSeaHeight(int seaHeight) {
+        this.seaHeight = seaHeight;
+    }
+
+    public int getMaxParachuters() {
+        return maxParachuters;
+    }
+
+    public void setMaxParachuters(int maxParachuters) {
+        this.maxParachuters = maxParachuters;
+    }
+
+    public int getCurrentParachuters() {
+        return currentParachuters;
+    }
+
+    public void setCurrentParachuters(int currentParachuters) {
+        this.currentParachuters = currentParachuters;
+    }
 
 }

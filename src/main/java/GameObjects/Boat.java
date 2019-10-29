@@ -1,40 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package GameObjcets;
+package GameObjects;
 
 import GameData.GameData;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
  *
- * @author avino
+ * Represents a Boat
  */
 public class Boat implements GameObject {
 
+    private final static String boatImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
     private int x;
     private int y;
     private int dx;
+    private final int boatHeight;
+    private final int boatWidth;
     private BufferedImage image;
+    GameData gameData;
 
-    public Boat(int seaHeight) {
+    public Boat() {
         try {
-            image = ImageIO.read(new File("C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png"));
+            image = ImageIO.read(new File(boatImage));
         } catch (IOException e) {
 
         }
-        this.x = GameData.getWindowXSize() / 2;
-        this.y = GameData.getWindowYSize() - seaHeight;
+        gameData = GameData.getInstance();
+        this.x = gameData.getWindowXSize() / 2;
+        this.y = gameData.getWindowYSize() - gameData.getSeaHeight();
         this.dx = 0;
+        boatHeight = image.getHeight();
+        boatWidth = image.getWidth();
     }
 
     @Override
@@ -42,13 +42,12 @@ public class Boat implements GameObject {
         x += dx;
     }
 
-    @Override
-    public void draw(Graphics2D g, ImageObserver o) {
-        g.drawImage(image, this.x, this.y, o);
-    }
-
+    /* 
+        checks the bounds of the object in order to check collosion with other units
+        height is divided because parachutists land on the deck and not on top of the boat
+     */
     public Rectangle getBounds() {
-        return new Rectangle(x, y, image.getWidth(), image.getHeight());
+        return new Rectangle(x, y + (boatHeight / 2), boatWidth, boatHeight);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -58,7 +57,6 @@ public class Boat implements GameObject {
         if (key == KeyEvent.VK_LEFT) {
             dx = -3;
         }
-
         if (key == KeyEvent.VK_RIGHT) {
             dx = 3;
         }
@@ -71,12 +69,12 @@ public class Boat implements GameObject {
         if (key == KeyEvent.VK_LEFT) {
             dx = 0;
         }
-
         if (key == KeyEvent.VK_RIGHT) {
             dx = 0;
         }
     }
 
+    @Override
     public int getX() {
         return x;
     }
@@ -85,6 +83,7 @@ public class Boat implements GameObject {
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
@@ -101,12 +100,18 @@ public class Boat implements GameObject {
         this.dx = dx;
     }
 
+    @Override
     public BufferedImage getImage() {
         return image;
     }
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    @Override
+    public boolean needToRemove() {
+        return false;
     }
 
 }
