@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  */
 public class Plane implements GameObject {
 
-    private final static String planeImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\plane.png";
+    private final static String PLANE_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\plane.png";
     private int x;
     private int y;
     private final int startingPosition;
@@ -20,7 +20,7 @@ public class Plane implements GameObject {
 
     public Plane() {
         try {
-            image = ImageIO.read(new File(planeImage));
+            image = ImageIO.read(new File(PLANE_IMAGE));
         } catch (IOException e) {
 
         }

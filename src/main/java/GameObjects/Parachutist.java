@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  */
 public class Parachutist extends InteractableObject implements GameObject {
 
-    private final static String parachutistImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\parachutist.png";
+    private final static String PARACHUTIST_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\parachutist.png";
     private BufferedImage image;
     private int x;
     private int y;
@@ -28,7 +28,7 @@ public class Parachutist extends InteractableObject implements GameObject {
     public Parachutist(int x, int y, LinkedList<InteractableObject> interactableObjects) {
 
         try {
-            image = ImageIO.read(new File(parachutistImage));
+            image = ImageIO.read(new File(PARACHUTIST_IMAGE));
         } catch (IOException e) {
 
         }
@@ -51,7 +51,7 @@ public class Parachutist extends InteractableObject implements GameObject {
             if (!(interactableObject instanceof Parachutist)) {
                 if (isCollision(interactableObject)) {
                     String res = parachutistCollideWith(interactableObject);
-                    if (res.equals("Caught")) {
+                    if (res.equals(GameData.PARACHUTIST_CAUGHT)) {
                         needToRemove = true;
                         gameData.parachuterCaught();
                     }

@@ -20,7 +20,7 @@ public class GameManager {
     private final Boat boat;
     private final Plane plane;
     private final Random rand;
-    LinkedList<InteractableObject> startingInteractableObjects;
+    LinkedList<InteractableObject> interactableObjects;
 
     // Create all the base objects and start the game
     public GameManager() {
@@ -29,14 +29,14 @@ public class GameManager {
         plane = new Plane();
         rand = new Random();
 
-        ArrayList<GameObject> startingGameObjects = new ArrayList<>();
-        startingGameObjects.add(boat);
-        startingGameObjects.add(plane);
+        ArrayList<GameObject> gameObjects = new ArrayList<>();
+        gameObjects.add(boat);
+        gameObjects.add(plane);
 
-        startingInteractableObjects = new LinkedList<>();
-        startingInteractableObjects.add(boat);
+        interactableObjects = new LinkedList<>();
+        interactableObjects.add(boat);
 
-        screenManager = new ScreenManager(startingGameObjects, startingInteractableObjects);
+        screenManager = new ScreenManager(gameObjects, interactableObjects);
 
         gameLoop();
     }
@@ -66,7 +66,7 @@ public class GameManager {
 
             int n = rand.nextInt(500);
             if (n < 3) {
-                Parachutist parachutist = new Parachutist(plane.getX(), plane.getY(), startingInteractableObjects);
+                Parachutist parachutist = new Parachutist(plane.getX(), plane.getY(), interactableObjects);
                 screenManager.addObject(parachutist);
                 gameData.addParachutist();
             }

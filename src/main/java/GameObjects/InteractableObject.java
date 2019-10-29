@@ -5,6 +5,7 @@
  */
 package GameObjects;
 
+import GameData.GameData;
 import java.awt.Rectangle;
 
 /**
@@ -13,17 +14,13 @@ import java.awt.Rectangle;
  */
 public abstract class InteractableObject {
 
-    /* 
-        checks the bounds of the object in order to check collosion with other units
-        height is divided because parachutists land on the deck and not on top of the boat
-     */
     public abstract Rectangle getBounds();
 
     public abstract boolean isCollision(InteractableObject interactableObject);
 
     public String parachutistCollideWith(InteractableObject interactableObject) {
         if (interactableObject instanceof Boat) {
-            return "Caught";
+            return GameData.PARACHUTIST_CAUGHT;
         }
         return null;
     }

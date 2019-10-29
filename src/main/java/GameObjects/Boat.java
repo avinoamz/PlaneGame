@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  */
 public class Boat extends InteractableObject implements GameObject, ControlledObject {
 
-    private final static String boatImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
+    private final static String BOAT_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
     private int x;
     private int y;
     private int dx;
@@ -25,7 +25,7 @@ public class Boat extends InteractableObject implements GameObject, ControlledOb
 
     public Boat() {
         try {
-            image = ImageIO.read(new File(boatImage));
+            image = ImageIO.read(new File(BOAT_IMAGE));
         } catch (IOException e) {
 
         }

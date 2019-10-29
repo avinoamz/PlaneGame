@@ -21,8 +21,8 @@ import javax.swing.JPanel;
  */
 public class ScreenManager extends JPanel {
 
-    private final static String backgroundImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\background.png";
-    private final static String seaImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\sea.png";
+    private final static String BACKGROUND_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\background.png";
+    private final static String SEA_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\sea.png";
 
     private final ArrayList<GameObject> gameObjects;
     private final ArrayList<GameObject> needToRemoveObjects;
@@ -36,8 +36,8 @@ public class ScreenManager extends JPanel {
 
     public ScreenManager(ArrayList<GameObject> gameObjects, LinkedList<InteractableObject> interactableObjects) {
         try {
-            background = ImageIO.read(new File(backgroundImage));
-            sea = ImageIO.read(new File(seaImage));
+            background = ImageIO.read(new File(BACKGROUND_IMAGE));
+            sea = ImageIO.read(new File(SEA_IMAGE));
         } catch (IOException e) {
 
         }
@@ -90,7 +90,7 @@ public class ScreenManager extends JPanel {
     }
 
     public void gameOver() {
-        JOptionPane.showMessageDialog(this, "Game Over", "Game Over", JOptionPane.YES_NO_OPTION);
+        JOptionPane.showMessageDialog(this, GameData.GAME_OVER, GameData.GAME_OVER, JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);
     }
 
