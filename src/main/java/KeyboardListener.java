@@ -1,5 +1,4 @@
 
-import GameObjects.Boat;
 import GameObjects.ControlledObject;
 import GameObjects.GameObject;
 import java.awt.event.KeyEvent;

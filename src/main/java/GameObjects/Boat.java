@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  *
  * Represents a Boat
  */
-public class Boat implements GameObject, ControlledObject {
+public class Boat extends InteractableObject implements GameObject, ControlledObject {
 
     private final static String boatImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
     private int x;
@@ -42,10 +42,16 @@ public class Boat implements GameObject, ControlledObject {
         x += dx;
     }
 
+    @Override
+    public boolean isCollision(InteractableObject interactableObject) {
+        return (interactableObject.getBounds().intersects(getBounds()));
+    }
+
     /* 
         checks the bounds of the object in order to check collosion with other units
         height is divided because parachutists land on the deck and not on top of the boat
      */
+    @Override
     public Rectangle getBounds() {
         return new Rectangle(x, y + (boatHeight / 2), boatWidth, boatHeight);
     }

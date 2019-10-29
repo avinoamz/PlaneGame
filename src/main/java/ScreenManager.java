@@ -1,6 +1,7 @@
 
 import GameData.GameData;
 import GameObjects.GameObject;
+import GameObjects.InteractableObject;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -8,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -24,13 +26,15 @@ public class ScreenManager extends JPanel {
 
     private final ArrayList<GameObject> gameObjects;
     private final ArrayList<GameObject> needToRemoveObjects;
+    private final LinkedList<InteractableObject> interactableObjects;
+    private final ArrayList<InteractableObject> needToRemoveInteractableObjects;
     private final GameData gameData;
     private final KeyboardListener keyListener;
     private final JFrame frame;
     private final Font monoFont;
     private BufferedImage background, sea;
 
-    public ScreenManager(ArrayList<GameObject> gameObjects) {
+    public ScreenManager(ArrayList<GameObject> gameObjects, LinkedList<InteractableObject> interactableObjects) {
         try {
             background = ImageIO.read(new File(backgroundImage));
             sea = ImageIO.read(new File(seaImage));
@@ -38,7 +42,9 @@ public class ScreenManager extends JPanel {
 
         }
         this.gameObjects = gameObjects;
+        this.interactableObjects = interactableObjects;
         this.needToRemoveObjects = new ArrayList<>();
+        this.needToRemoveInteractableObjects = new ArrayList<>();
         gameData = GameData.getInstance();
         keyListener = new KeyboardListener(gameObjects);
         monoFont = new Font("Monospaced", Font.BOLD | Font.ITALIC, 36);
@@ -55,10 +61,13 @@ public class ScreenManager extends JPanel {
             gameObject.move();
             if (gameObject.needToRemove()) {
                 needToRemoveObjects.add(gameObject);
+                needToRemoveInteractableObjects.add((InteractableObject) gameObject);
             }
         }
         gameObjects.removeAll(needToRemoveObjects);
+        interactableObjects.removeAll(needToRemoveInteractableObjects);
         needToRemoveObjects.clear();
+        needToRemoveInteractableObjects.clear();
     }
 
     @Override
@@ -77,6 +86,7 @@ public class ScreenManager extends JPanel {
 
     public void addObject(GameObject gameObject) {
         gameObjects.add(gameObject);
+        interactableObjects.add((InteractableObject) gameObject);
     }
 
     public void gameOver() {

@@ -5,17 +5,17 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 import javax.imageio.ImageIO;
 
 /**
  *
  * Represents a Parachutist
  */
-public class Parachutist implements GameObject {
+public class Parachutist extends InteractableObject implements GameObject {
 
     private final static String parachutistImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\parachutist.png";
     private BufferedImage image;
-    private final Boat boat;
     private int x;
     private int y;
     private int fallSpeed;
@@ -23,8 +23,9 @@ public class Parachutist implements GameObject {
     private final int parachutistWidth;
     private boolean needToRemove;
     private final GameData gameData;
+    private final LinkedList<InteractableObject> interactableObjects;
 
-    public Parachutist(int x, int y, Boat boat) {
+    public Parachutist(int x, int y, LinkedList<InteractableObject> interactableObjects) {
 
         try {
             image = ImageIO.read(new File(parachutistImage));
@@ -32,7 +33,7 @@ public class Parachutist implements GameObject {
 
         }
         this.gameData = GameData.getInstance();
-        this.boat = boat;
+        this.interactableObjects = interactableObjects;
         this.x = x;
         this.y = y;
         this.fallSpeed = 1;
@@ -46,24 +47,34 @@ public class Parachutist implements GameObject {
         if (y > 0) {
             y += fallSpeed;
         }
-        if (isCollision()) {
-            needToRemove = true;
-            gameData.parachuterCaught();
-        } else if (y > (gameData.getWindowYSize() - gameData.getSeaHeight())) {
+        for (InteractableObject interactableObject : interactableObjects) {
+            if (!(interactableObject instanceof Parachutist)) {
+                if (isCollision(interactableObject)) {
+                    String res = parachutistCollideWith(interactableObject);
+                    if (res.equals("Caught")) {
+                        needToRemove = true;
+                        gameData.parachuterCaught();
+                    }
+                }
+            }
+        }
+        if (y > (gameData.getWindowYSize() - gameData.getSeaHeight())) {
             needToRemove = true;
             gameData.parachuterDrowned();
         }
     }
 
     // checks if the parachutists landed on the boat
-    private boolean isCollision() {
-        return (boat.getBounds().intersects(getBounds()));
+    @Override
+    public boolean isCollision(InteractableObject interactableObject) {
+        return (interactableObject.getBounds().intersects(getBounds()));
     }
 
     /* 
         checks the bounds of the object in order to check collosion with other units
         height is divided because parachutists land on the deck and not on top of the boat
      */
+    @Override
     public Rectangle getBounds() {
         return new Rectangle(x, y, parachutistWidth, parachutistHeight);
     }
