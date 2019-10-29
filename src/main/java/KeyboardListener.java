@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class KeyboardListener implements KeyListener {
 
-    ArrayList<ControlledObject> controlledObjects;
+    private final ArrayList<ControlledObject> controlledObjects;
 
     public KeyboardListener(ArrayList<GameObject> gameObjects) {
         controlledObjects = new ArrayList<>();

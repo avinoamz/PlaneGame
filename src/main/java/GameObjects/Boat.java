@@ -21,7 +21,7 @@ public class Boat implements GameObject, ControlledObject {
     private final int boatHeight;
     private final int boatWidth;
     private BufferedImage image;
-    GameData gameData;
+    private final GameData gameData;
 
     public Boat() {
         try {

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 
 /**
  *
- * @author avino
+ * Interface that represents a Controlled Object
  */
 public interface ControlledObject {
 

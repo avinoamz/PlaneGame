@@ -7,8 +7,7 @@ package GameData;
 
 /**
  *
- * Responsible for holding the data of the game.
- * Singleton
+ * Responsible for holding the data of the game. Singleton
  */
 public class GameData {
 
@@ -48,7 +47,7 @@ public class GameData {
         lives--;
     }
 
-    public void parachuterCatched() {
+    public void parachuterCaught() {
         currentParachuters--;
         score += 10;
     }

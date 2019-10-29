@@ -13,11 +13,11 @@ import java.util.Random;
  */
 public class GameManager {
 
-    GameData gameData;
-    ScreenManager screenManager;
-    Boat boat;
-    Plane plane;
-    Random rand;
+    private final GameData gameData;
+    private final ScreenManager screenManager;
+    private final Boat boat;
+    private final Plane plane;
+    private final Random rand;
 
     // Create all the base objects and start the game
     public GameManager() {
@@ -78,7 +78,7 @@ public class GameManager {
     }
 
     public static void main(String[] args) {
-        GameManager gameScreen1 = new GameManager();
+        GameManager gameManager = new GameManager();
     }
 
 }

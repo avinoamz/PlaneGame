@@ -22,7 +22,7 @@ public class Parachutist implements GameObject {
     private final int parachutistHeight;
     private final int parachutistWidth;
     private boolean needToRemove;
-    GameData gameData;
+    private final GameData gameData;
 
     public Parachutist(int x, int y, Boat boat) {
 
@@ -48,13 +48,13 @@ public class Parachutist implements GameObject {
         }
         if (isCollision()) {
             needToRemove = true;
-            gameData.parachuterCatched();
+            gameData.parachuterCaught();
         } else if (y > (gameData.getWindowYSize() - gameData.getSeaHeight())) {
             needToRemove = true;
             gameData.parachuterDrowned();
         }
     }
-    
+
     // checks if the parachutists landed on the boat
     private boolean isCollision() {
         return (boat.getBounds().intersects(getBounds()));

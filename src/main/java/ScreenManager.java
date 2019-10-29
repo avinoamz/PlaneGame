@@ -22,9 +22,9 @@ public class ScreenManager extends JPanel {
     private final static String backgroundImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\background.png";
     private final static String seaImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\sea.png";
 
-    ArrayList<GameObject> gameObjects;
-    ArrayList<GameObject> needToRemoveObjects;
-    GameData gameData;
+    private final ArrayList<GameObject> gameObjects;
+    private final ArrayList<GameObject> needToRemoveObjects;
+    private final GameData gameData;
     private final KeyboardListener keyListener;
     private final JFrame frame;
     private final Font monoFont;
@@ -53,7 +53,7 @@ public class ScreenManager extends JPanel {
     public void moveObjects() {
         for (GameObject gameObject : gameObjects) {
             gameObject.move();
-            if (gameObject.needToRemove()){
+            if (gameObject.needToRemove()) {
                 needToRemoveObjects.add(gameObject);
             }
         }
