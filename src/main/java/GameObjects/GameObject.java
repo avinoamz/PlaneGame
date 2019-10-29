@@ -15,7 +15,7 @@ public interface GameObject {
     public int getY();
 
     public void move();
-
+    
     public boolean needToRemove();
 
 }

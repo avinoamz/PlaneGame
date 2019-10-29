@@ -14,6 +14,7 @@ public class GameData {
     private static GameData instance = null;
     
     public static final String PARACHUTIST_CAUGHT = "PARACHUTIST_CAUGHT";
+    public static final String PARACHUTIST_DROWNED = "PARACHUTIST_DROWNED";
     public static final String GAME_OVER = "GAME_OVER";
 
     private int lives;

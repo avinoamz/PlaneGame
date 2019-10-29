@@ -16,8 +16,6 @@ public class Parachutist extends InteractableObject implements GameObject {
 
     private final static String PARACHUTIST_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\parachutist.png";
     private BufferedImage image;
-    private int x;
-    private int y;
     private int fallSpeed;
     private final int parachutistHeight;
     private final int parachutistWidth;
@@ -44,23 +42,29 @@ public class Parachutist extends InteractableObject implements GameObject {
 
     @Override
     public void move() {
-        if (y > 0) {
-            y += fallSpeed;
-        }
+        y += fallSpeed;
+        checkForInteraction();
+    }
+
+    public void checkForInteraction() {
         for (InteractableObject interactableObject : interactableObjects) {
-            if (!(interactableObject instanceof Parachutist)) {
-                if (isCollision(interactableObject)) {
-                    String res = parachutistCollideWith(interactableObject);
-                    if (res.equals(GameData.PARACHUTIST_CAUGHT)) {
+            if (isCollision(interactableObject)) {
+                String res = parachutistCollideWith(interactableObject);
+                switch (res) {
+                    case GameData.PARACHUTIST_CAUGHT:
                         needToRemove = true;
                         gameData.parachuterCaught();
-                    }
+                        break;
+
+                    case GameData.PARACHUTIST_DROWNED:
+                        needToRemove = true;
+                        gameData.parachuterDrowned();
+                        break;
+
+                    default:
+                        System.out.println("Error");
                 }
             }
-        }
-        if (y > (gameData.getWindowYSize() - gameData.getSeaHeight())) {
-            needToRemove = true;
-            gameData.parachuterDrowned();
         }
     }
 
@@ -114,7 +118,6 @@ public class Parachutist extends InteractableObject implements GameObject {
         this.image = image;
     }
 
-    @Override
     public boolean needToRemove() {
         return needToRemove;
     }

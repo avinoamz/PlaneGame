@@ -15,8 +15,6 @@ import javax.imageio.ImageIO;
 public class Boat extends InteractableObject implements GameObject, ControlledObject {
 
     private final static String BOAT_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
-    private int x;
-    private int y;
     private int dx;
     private final int boatHeight;
     private final int boatWidth;
@@ -39,7 +37,16 @@ public class Boat extends InteractableObject implements GameObject, ControlledOb
 
     @Override
     public void move() {
-        x += dx;
+        if (dx > 0) {
+            if (x < gameData.getWindowXSize() - boatWidth) {
+                x += dx;
+            }
+        } else if (dx < 0) {
+            if (x > 0) {
+                x += dx;
+            }
+        }
+
     }
 
     @Override

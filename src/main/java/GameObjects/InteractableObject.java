@@ -14,6 +14,8 @@ import java.awt.Rectangle;
  */
 public abstract class InteractableObject {
 
+    int x, y;
+
     public abstract Rectangle getBounds();
 
     public abstract boolean isCollision(InteractableObject interactableObject);
@@ -21,6 +23,8 @@ public abstract class InteractableObject {
     public String parachutistCollideWith(InteractableObject interactableObject) {
         if (interactableObject instanceof Boat) {
             return GameData.PARACHUTIST_CAUGHT;
+        } else if (interactableObject instanceof Sea) {
+            return GameData.PARACHUTIST_DROWNED;
         }
         return null;
     }

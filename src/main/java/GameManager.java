@@ -5,6 +5,7 @@ import GameObjects.GameObject;
 import GameObjects.InteractableObject;
 import GameObjects.Parachutist;
 import GameObjects.Plane;
+import GameObjects.Sea;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
@@ -19,6 +20,7 @@ public class GameManager {
     private final ScreenManager screenManager;
     private final Boat boat;
     private final Plane plane;
+    private final Sea sea;
     private final Random rand;
     LinkedList<InteractableObject> interactableObjects;
 
@@ -27,6 +29,7 @@ public class GameManager {
         gameData = GameData.getInstance();
         boat = new Boat();
         plane = new Plane();
+        sea = new Sea();
         rand = new Random();
 
         ArrayList<GameObject> gameObjects = new ArrayList<>();
@@ -35,8 +38,9 @@ public class GameManager {
 
         interactableObjects = new LinkedList<>();
         interactableObjects.add(boat);
+        interactableObjects.add(sea);
 
-        screenManager = new ScreenManager(gameObjects, interactableObjects);
+        screenManager = new ScreenManager(gameObjects);
 
         gameLoop();
     }
