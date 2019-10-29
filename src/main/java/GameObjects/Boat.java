@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
  *
  * Represents a Boat
  */
-public class Boat implements GameObject {
+public class Boat implements GameObject, ControlledObject {
 
     private final static String boatImage = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
     private int x;
@@ -50,6 +50,7 @@ public class Boat implements GameObject {
         return new Rectangle(x, y + (boatHeight / 2), boatWidth, boatHeight);
     }
 
+    @Override
     public void keyPressed(KeyEvent e) {
 
         int key = e.getKeyCode();
@@ -62,6 +63,7 @@ public class Boat implements GameObject {
         }
     }
 
+    @Override
     public void keyReleased(KeyEvent e) {
 
         int key = e.getKeyCode();
