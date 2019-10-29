@@ -1,5 +1,6 @@
 
 import GameData.GameData;
+import GameObjects.Boat;
 import GameObjects.GameObject;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -29,8 +30,8 @@ public class ScreenManager extends JPanel {
 
     public ScreenManager(ArrayList<GameObject> gameObjects) {
         try {
-            background = ImageIO.read(new File(GameData.BACKGROUND_IMAGE));
-            sea = ImageIO.read(new File(GameData.SEA_IMAGE));
+            background = ImageIO.read(Boat.class.getResourceAsStream(GameData.BACKGROUND_IMAGE));
+            sea = ImageIO.read(Boat.class.getResourceAsStream(GameData.SEA_IMAGE));
         } catch (IOException e) {
 
         }

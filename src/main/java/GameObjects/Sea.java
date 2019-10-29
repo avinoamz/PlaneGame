@@ -20,7 +20,7 @@ public class Sea extends InteractableObject {
 
     public Sea() {
         try {
-            image = ImageIO.read(new File(GameData.SEA_IMAGE));
+            image = ImageIO.read(Boat.class.getResourceAsStream(GameData.SEA_IMAGE));
         } catch (IOException e) {
 
         }

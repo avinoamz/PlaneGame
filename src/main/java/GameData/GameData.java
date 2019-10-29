@@ -9,11 +9,12 @@ public class GameData {
 
     private static GameData instance = null;
 
-    public final static String BOAT_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
-    public final static String PLANE_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\plane.png";
-    public final static String PARACHUTIST_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\parachutist.png";
-    public final static String SEA_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\sea.png";
-    public final static String BACKGROUND_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\background.png";
+    public final static String BOAT_IMAGE = "/boat.png";
+    public final static String PLANE_IMAGE = "/plane.png";
+    public final static String PARACHUTIST_IMAGE = "/parachutist.png";
+    public final static String SEA_IMAGE = "/sea.png";
+    public final static String BACKGROUND_IMAGE = "/background.png";
+    
 
     public static final String PARACHUTIST_CAUGHT = "PARACHUTIST_CAUGHT";
     public static final String PARACHUTIST_DROWNED = "PARACHUTIST_DROWNED";

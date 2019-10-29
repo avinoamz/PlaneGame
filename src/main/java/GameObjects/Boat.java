@@ -2,6 +2,7 @@ package GameObjects;
 
 import GameData.GameData;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,7 +23,7 @@ public class Boat extends InteractableObject implements GameObject, ControlledOb
 
     public Boat() {
         try {
-            image = ImageIO.read(new File(GameData.BOAT_IMAGE));
+            image = ImageIO.read(Boat.class.getResourceAsStream(GameData.BOAT_IMAGE));
         } catch (IOException e) {
 
         }

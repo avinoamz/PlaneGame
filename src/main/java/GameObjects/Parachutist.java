@@ -25,7 +25,7 @@ public class Parachutist extends InteractableObject implements GameObject {
     public Parachutist(int x, int y, ArrayList<InteractableObject> interactableObjects) {
 
         try {
-            image = ImageIO.read(new File(GameData.PARACHUTIST_IMAGE));
+            image = ImageIO.read(Boat.class.getResourceAsStream(GameData.PARACHUTIST_IMAGE));
         } catch (IOException e) {
 
         }

@@ -19,7 +19,7 @@ public class Plane implements GameObject {
 
     public Plane() {
         try {
-            image = ImageIO.read(new File(GameData.PLANE_IMAGE));
+            image = ImageIO.read(Boat.class.getResourceAsStream(GameData.PLANE_IMAGE));
         } catch (IOException e) {
 
         }
