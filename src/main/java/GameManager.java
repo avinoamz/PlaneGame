@@ -7,7 +7,6 @@ import GameObjects.Parachutist;
 import GameObjects.Plane;
 import GameObjects.Sea;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Random;
 
 /**
@@ -22,7 +21,7 @@ public class GameManager {
     private final Plane plane;
     private final Sea sea;
     private final Random rand;
-    LinkedList<InteractableObject> interactableObjects;
+    ArrayList<InteractableObject> interactableObjects;
 
     // Create all the base objects and start the game
     public GameManager() {
@@ -36,7 +35,7 @@ public class GameManager {
         gameObjects.add(boat);
         gameObjects.add(plane);
 
-        interactableObjects = new LinkedList<>();
+        interactableObjects = new ArrayList<>();
         interactableObjects.add(boat);
         interactableObjects.add(sea);
 
@@ -66,7 +65,7 @@ public class GameManager {
 
     // randomly create new parachutists
     private void createNewParachuter() {
-        if (gameData.getCurrentParachuters() < gameData.getMaxParachuters()) {
+        if (gameData.getCurrentParachuters() < GameData.MAX_PARACHUTISTS) {
 
             int n = rand.nextInt(500);
             if (n < 3) {

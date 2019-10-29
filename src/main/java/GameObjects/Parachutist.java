@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 /**
@@ -14,19 +14,18 @@ import javax.imageio.ImageIO;
  */
 public class Parachutist extends InteractableObject implements GameObject {
 
-    private final static String PARACHUTIST_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\parachutist.png";
     private BufferedImage image;
     private int fallSpeed;
     private final int parachutistHeight;
     private final int parachutistWidth;
     private boolean needToRemove;
     private final GameData gameData;
-    private final LinkedList<InteractableObject> interactableObjects;
+    private final ArrayList<InteractableObject> interactableObjects;
 
-    public Parachutist(int x, int y, LinkedList<InteractableObject> interactableObjects) {
+    public Parachutist(int x, int y, ArrayList<InteractableObject> interactableObjects) {
 
         try {
-            image = ImageIO.read(new File(PARACHUTIST_IMAGE));
+            image = ImageIO.read(new File(GameData.PARACHUTIST_IMAGE));
         } catch (IOException e) {
 
         }
@@ -34,7 +33,7 @@ public class Parachutist extends InteractableObject implements GameObject {
         this.interactableObjects = interactableObjects;
         this.x = x;
         this.y = y;
-        this.fallSpeed = 1;
+        this.fallSpeed = GameData.PARACHUTIST_FALL_SPEED;
         this.needToRemove = false;
         this.parachutistHeight = image.getHeight();
         this.parachutistWidth = image.getWidth();
@@ -118,6 +117,7 @@ public class Parachutist extends InteractableObject implements GameObject {
         this.image = image;
     }
 
+    @Override
     public boolean needToRemove() {
         return needToRemove;
     }

@@ -14,22 +14,20 @@ import javax.imageio.ImageIO;
  */
 public class Boat extends InteractableObject implements GameObject, ControlledObject {
 
-    private final static String BOAT_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\boat.png";
     private int dx;
     private final int boatHeight;
     private final int boatWidth;
     private BufferedImage image;
-    private final GameData gameData;
+//    private final GameData gameData;
 
     public Boat() {
         try {
-            image = ImageIO.read(new File(BOAT_IMAGE));
+            image = ImageIO.read(new File(GameData.BOAT_IMAGE));
         } catch (IOException e) {
 
         }
-        gameData = GameData.getInstance();
-        this.x = gameData.getWindowXSize() / 2;
-        this.y = gameData.getWindowYSize() - gameData.getSeaHeight();
+        this.x = GameData.WINDOW_X_SIZE / 2;
+        this.y = GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT;
         this.dx = 0;
         boatHeight = image.getHeight();
         boatWidth = image.getWidth();
@@ -38,7 +36,7 @@ public class Boat extends InteractableObject implements GameObject, ControlledOb
     @Override
     public void move() {
         if (dx > 0) {
-            if (x < gameData.getWindowXSize() - boatWidth) {
+            if (x < GameData.WINDOW_X_SIZE - boatWidth) {
                 x += dx;
             }
         } else if (dx < 0) {

@@ -1,7 +1,6 @@
 
 import GameData.GameData;
 import GameObjects.GameObject;
-import GameObjects.InteractableObject;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,7 +8,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,12 +19,8 @@ import javax.swing.JPanel;
  */
 public class ScreenManager extends JPanel {
 
-    private final static String BACKGROUND_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\background.png";
-    private final static String SEA_IMAGE = "C:\\\\Users\\\\avino\\\\Documents\\\\NetBeansProjects\\\\mavenproject1\\\\Matific\\\\src\\\\main\\\\java\\\\resources\\\\sea.png";
-
     private final ArrayList<GameObject> gameObjects;
     private final ArrayList<GameObject> needToRemoveGameObjects;
-    private final ArrayList<InteractableObject> needToRemoveInteractableObjects;
     private final GameData gameData;
     private final KeyboardListener keyListener;
     private final JFrame frame;
@@ -35,19 +29,18 @@ public class ScreenManager extends JPanel {
 
     public ScreenManager(ArrayList<GameObject> gameObjects) {
         try {
-            background = ImageIO.read(new File(BACKGROUND_IMAGE));
-            sea = ImageIO.read(new File(SEA_IMAGE));
+            background = ImageIO.read(new File(GameData.BACKGROUND_IMAGE));
+            sea = ImageIO.read(new File(GameData.SEA_IMAGE));
         } catch (IOException e) {
 
         }
         this.gameObjects = gameObjects;
         this.needToRemoveGameObjects = new ArrayList<>();
-        this.needToRemoveInteractableObjects = new ArrayList<>();
         gameData = GameData.getInstance();
         keyListener = new KeyboardListener(gameObjects);
         monoFont = new Font("Monospaced", Font.BOLD | Font.ITALIC, 36);
         frame = new JFrame("Parachutist's");
-        frame.setSize(gameData.getWindowXSize(), gameData.getWindowYSize());
+        frame.setSize(GameData.WINDOW_X_SIZE, GameData.WINDOW_Y_SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
         frame.addKeyListener(keyListener);
@@ -70,7 +63,7 @@ public class ScreenManager extends JPanel {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(background, 0, 0, this);
-        g2d.drawImage(sea, 0, gameData.getWindowYSize() - gameData.getSeaHeight(), this);
+        g2d.drawImage(sea, 0, GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT, this);
         for (GameObject gameObject : gameObjects) {
             g2d.drawImage(gameObject.getImage(), gameObject.getX(), gameObject.getY(), this);
         }
