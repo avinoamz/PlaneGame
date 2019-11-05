@@ -1,8 +1,7 @@
-package GameObjects;
 
 /**
  *
- * @author avino
+ * Generic Game Object.
  */
 public class GameObject {
 

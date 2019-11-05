@@ -1,10 +1,9 @@
 
 import java.util.Random;
-import GameObjects.GameObject;
 
 /**
  *
- * The class that operates the game's logic and mechanic
+ * The class that operates the game's flow
  */
 public class GameManager {
 
@@ -28,7 +27,7 @@ public class GameManager {
             createNewParachuter();
             paint();
             try {
-                Thread.sleep(10);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
             }
         }

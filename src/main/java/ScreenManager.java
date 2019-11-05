@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import GameObjects.GameObject;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
@@ -13,7 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * Responsible for all the drawing and interactions that appear on screen
+ * Responsible for all the drawing that appear on screen
  */
 public class ScreenManager extends JPanel implements KeyListener {
 
@@ -28,11 +27,11 @@ public class ScreenManager extends JPanel implements KeyListener {
 
     static {
         try {
-            boatImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.BOAT_IMAGE));
-            planeImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.PLANE_IMAGE));
-            parachutistImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.PARACHUTIST_IMAGE));
-            seaImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.SEA_IMAGE));
-            backgroundImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.BACKGROUND_IMAGE));
+            boatImage = ImageIO.read(ScreenManager.class.getResourceAsStream(GameData.BOAT_IMAGE));
+            planeImage = ImageIO.read(ScreenManager.class.getResourceAsStream(GameData.PLANE_IMAGE));
+            parachutistImage = ImageIO.read(ScreenManager.class.getResourceAsStream(GameData.PARACHUTIST_IMAGE));
+            seaImage = ImageIO.read(ScreenManager.class.getResourceAsStream(GameData.SEA_IMAGE));
+            backgroundImage = ImageIO.read(ScreenManager.class.getResourceAsStream(GameData.BACKGROUND_IMAGE));
 
         } catch (IOException e) {
             System.out.println("Error loading images");
@@ -41,7 +40,6 @@ public class ScreenManager extends JPanel implements KeyListener {
     }
 
     public ScreenManager() {
-
         gameData = GameData.getInstance();
         monoFont = new Font("Monospaced", Font.BOLD | Font.ITALIC, 36);
         frame = new JFrame("Parachutist's");
@@ -53,6 +51,7 @@ public class ScreenManager extends JPanel implements KeyListener {
     }
 
     @Override
+    // draw all the objects on the screen
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
@@ -73,6 +72,7 @@ public class ScreenManager extends JPanel implements KeyListener {
         g.drawString("Score: " + gameData.getScore(), 0, 250);
     }
 
+    // display a message when the game is over
     public void gameOver() {
         JOptionPane.showMessageDialog(this, GameData.GAME_OVER, GameData.GAME_OVER, JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);

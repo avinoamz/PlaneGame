@@ -1,32 +1,45 @@
 
-import GameObjects.GameObject;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.LinkedList;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
- * @author avino
+ * Responsible for moving the objects and managing thier interactions
  */
 public class MovementManager {
 
+    // move the boat once the arrow keys are pressed
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            GameData.getInstance().getBoat().setVelocity(-3);
+            GameData.getInstance().getBoat().setVelocity(-4);
         }
         if (key == KeyEvent.VK_RIGHT) {
-            GameData.getInstance().getBoat().setVelocity(3);
+            GameData.getInstance().getBoat().setVelocity(4);
         }
         moveBoat();
     }
 
+    // moves the boat, controlled by the player
+    public void moveBoat() {
+        GameObject boat = GameData.getInstance().getBoat();
+        int x = boat.getX();
+        int velocity = boat.getVelocity();
+        if (velocity > 0) {
+            if (x < GameData.WINDOW_X_SIZE - ScreenManager.boatImage.getWidth()) {
+                x += velocity;
+            }
+        } else if (velocity < 0) {
+            if (x > 0) {
+                x += velocity;
+            }
+        }
+        boat.setX(x);
+    }
+
+    // move all the parachutists, and checks whether they are caught or drown
     public void moveParachutists() {
         GameData gameData = GameData.getInstance();
         GameObject boat = gameData.getBoat();
@@ -51,6 +64,7 @@ public class MovementManager {
         }
     }
 
+    // moves the plane
     public void movePlane() {
         GameObject plane = GameData.getInstance().getPlane();
         int x = plane.getX();
@@ -61,19 +75,4 @@ public class MovementManager {
         plane.setX(x);
     }
 
-    public void moveBoat() {
-        GameObject boat = GameData.getInstance().getBoat();
-        int x = boat.getX();
-        int velocity = boat.getVelocity();
-        if (velocity > 0) {
-            if (x < GameData.WINDOW_X_SIZE - ScreenManager.boatImage.getWidth()) {
-                x += velocity;
-            }
-        } else if (velocity < 0) {
-            if (x > 0) {
-                x += velocity;
-            }
-        }
-        boat.setX(x);
-    }
 }
