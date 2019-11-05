@@ -1,76 +1,81 @@
 
-import GameData.GameData;
-import GameObjects.Boat;
-import GameObjects.GameObject;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import GameObjects.GameObject;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 
 /**
- *
  * Responsible for all the drawing and interactions that appear on screen
  */
-public class ScreenManager extends JPanel {
+public class ScreenManager extends JPanel implements KeyListener {
 
-    private final ArrayList<GameObject> gameObjects;
+    private final LinkedList<GameObject> gameObjects;
     private final ArrayList<GameObject> needToRemoveGameObjects;
     private final GameData gameData;
-    private final KeyboardListener keyListener;
+//    private final KeyboardListener keyListener;
     private final JFrame frame;
     private final Font monoFont;
-    private BufferedImage background, sea;
 
-    public ScreenManager(ArrayList<GameObject> gameObjects) {
-        try {
-            background = ImageIO.read(Boat.class.getResourceAsStream(GameData.BACKGROUND_IMAGE));
-            sea = ImageIO.read(Boat.class.getResourceAsStream(GameData.SEA_IMAGE));
-        } catch (IOException e) {
+    public ScreenManager() {
 
-        }
-        this.gameObjects = gameObjects;
-        this.needToRemoveGameObjects = new ArrayList<>();
         gameData = GameData.getInstance();
-        keyListener = new KeyboardListener(gameObjects);
+        gameObjects = new LinkedList<>();
+        gameObjects.add(gameData.getBackground());
+        gameObjects.add(gameData.getSea());
+        gameObjects.add(gameData.getPlane());
+        gameObjects.add(gameData.getBoat());
+        this.needToRemoveGameObjects = new ArrayList<>();
+
+//        keyListener = new KeyboardListener(gameObjects);
         monoFont = new Font("Monospaced", Font.BOLD | Font.ITALIC, 36);
         frame = new JFrame("Parachutist's");
         frame.setSize(GameData.WINDOW_X_SIZE, GameData.WINDOW_Y_SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
-        frame.addKeyListener(keyListener);
+        frame.addKeyListener(this);
         frame.setVisible(true);
-    }
-
-    public void moveObjects() {
-        for (GameObject gameObject : gameObjects) {
-            gameObject.move();
-            if (gameObject.needToRemove()) {
-                needToRemoveGameObjects.add(gameObject);
-            }
-        }
-        gameObjects.removeAll(needToRemoveGameObjects);
-        needToRemoveGameObjects.clear();
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.drawImage(background, 0, 0, this);
-        g2d.drawImage(sea, 0, GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT, this);
         for (GameObject gameObject : gameObjects) {
-            g2d.drawImage(gameObject.getImage(), gameObject.getX(), gameObject.getY(), this);
+            BufferedImage image = getImageByType(gameObject);
+            g2d.drawImage(image, gameObject.getX(), gameObject.getY(), this);
+        }
+        for (GameObject gameObject : gameData.getParachutists()) {
+            BufferedImage image = getImageByType(gameObject);
+            g2d.drawImage(image, gameObject.getX(), gameObject.getY(), this);
         }
         g.setFont(monoFont);
         g.drawString("Lives: " + gameData.getLives(), 0, 220);
         g.drawString("Score: " + gameData.getScore(), 0, 250);
+    }
+
+    private BufferedImage getImageByType(GameObject gameObject) {
+        switch (gameObject.getType()) {
+            case PARACHUTIST:
+                return GameData.parachutistImage;
+            case PLANE:
+                return GameData.planeImage;
+            case BOAT:
+                return GameData.boatImage;
+            case SEA:
+                return GameData.seaImage;
+            case BACKGROUND:
+                return GameData.backgroundImage;
+            default:
+                return null;
+        }
     }
 
     public void addObject(GameObject gameObject) {
@@ -80,6 +85,20 @@ public class ScreenManager extends JPanel {
     public void gameOver() {
         JOptionPane.showMessageDialog(this, GameData.GAME_OVER, GameData.GAME_OVER, JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        gameData.getMovementManager().keyPressed(e);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        gameData.getMovementManager().keyReleased(e);
     }
 
 }

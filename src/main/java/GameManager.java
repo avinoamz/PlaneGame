@@ -1,13 +1,7 @@
 
-import GameData.GameData;
-import GameObjects.Boat;
-import GameObjects.GameObject;
-import GameObjects.InteractableObject;
-import GameObjects.Parachutist;
-import GameObjects.Plane;
-import GameObjects.Sea;
-import java.util.ArrayList;
+import GameObjects.Type;
 import java.util.Random;
+import GameObjects.GameObject;
 
 /**
  *
@@ -17,29 +11,13 @@ public class GameManager {
 
     private final GameData gameData;
     private final ScreenManager screenManager;
-    private final Boat boat;
-    private final Plane plane;
-    private final Sea sea;
     private final Random rand;
-    ArrayList<InteractableObject> interactableObjects;
 
     // Create all the base objects and start the game
     public GameManager() {
         gameData = GameData.getInstance();
-        boat = new Boat();
-        plane = new Plane();
-        sea = new Sea();
         rand = new Random();
-
-        ArrayList<GameObject> gameObjects = new ArrayList<>();
-        gameObjects.add(boat);
-        gameObjects.add(plane);
-
-        interactableObjects = new ArrayList<>();
-        interactableObjects.add(boat);
-        interactableObjects.add(sea);
-
-        screenManager = new ScreenManager(gameObjects);
+        screenManager = new ScreenManager();
 
         gameLoop();
     }
@@ -47,7 +25,7 @@ public class GameManager {
     // keeps the game running, while updating the objects
     private void gameLoop() {
         while (gameData.getLives() > 0) {
-            moveObjects();
+            moveObjectsAndRemoveIfNeeded();
             createNewParachuter();
             paint();
             try {
@@ -58,9 +36,10 @@ public class GameManager {
         gameOver();
     }
 
-    // updates objects location
-    public void moveObjects() {
-        screenManager.moveObjects();
+    // updates objects location and remove if needed
+    public void moveObjectsAndRemoveIfNeeded() {
+        gameData.getMovementManager().movePlane();
+        gameData.getMovementManager().moveParachutists();
     }
 
     // randomly create new parachutists
@@ -69,9 +48,15 @@ public class GameManager {
 
             int n = rand.nextInt(500);
             if (n < 3) {
-                Parachutist parachutist = new Parachutist(plane.getX(), plane.getY(), interactableObjects);
-                screenManager.addObject(parachutist);
-                gameData.addParachutist();
+                GameObject parachutist = new GameObject(
+                        gameData.getPlane().getX(),
+                        gameData.getPlane().getY(),
+                        Type.PARACHUTIST,
+                        GameData.PARACHUTIST_FALL_SPEED,
+                        GameData.parachutistImage.getHeight(),
+                        GameData.parachutistImage.getWidth()
+                );
+                gameData.addParachutist(parachutist);
             }
         }
     }
