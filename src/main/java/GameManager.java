@@ -53,8 +53,8 @@ public class GameManager {
                         gameData.getPlane().getY(),
                         Type.PARACHUTIST,
                         GameData.PARACHUTIST_FALL_SPEED,
-                        GameData.parachutistImage.getHeight(),
-                        GameData.parachutistImage.getWidth()
+                        ScreenManager.parachutistImage.getHeight(),
+                        ScreenManager.parachutistImage.getWidth()
                 );
                 gameData.addParachutist(parachutist);
             }

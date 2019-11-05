@@ -1,7 +1,5 @@
 package GameObjects;
 
-import java.awt.Rectangle;
-
 /**
  *
  * @author avino

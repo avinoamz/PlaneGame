@@ -20,12 +20,6 @@ public class GameData {
     public final static String SEA_IMAGE = "/sea.png";
     public final static String BACKGROUND_IMAGE = "/background.png";
 
-    public static BufferedImage boatImage;
-    public static BufferedImage planeImage;
-    public static BufferedImage parachutistImage;
-    public static BufferedImage seaImage;
-    public static BufferedImage backgroundImage;
-
     public static final String PARACHUTIST_CAUGHT = "PARACHUTIST_CAUGHT";
     public static final String PARACHUTIST_DROWNED = "PARACHUTIST_DROWNED";
     public static final String GAME_OVER = "GAME_OVER";
@@ -46,22 +40,14 @@ public class GameData {
 
     private GameObject plane;
     private GameObject boat;
-    private GameObject sea;
-    private GameObject background;
     private LinkedList<GameObject> parachutists;
     private MovementManager movementManager;
 
-    static {
-        try {
-            boatImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.BOAT_IMAGE));
-            planeImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.PLANE_IMAGE));
-            parachutistImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.PARACHUTIST_IMAGE));
-            seaImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.SEA_IMAGE));
-            backgroundImage = ImageIO.read(GameData.class.getResourceAsStream(GameData.BACKGROUND_IMAGE));
-
-        } catch (IOException e) {
-
+    public static GameData getInstance() {
+        if (instance == null) {
+            instance = new GameData();
         }
+        return instance;
     }
 
     private GameData() {
@@ -69,20 +55,19 @@ public class GameData {
         this.score = 0;
         this.currentParachuters = 0;
 
-        boat = new GameObject(WINDOW_X_SIZE / 2, WINDOW_Y_SIZE - SEA_HEIGHT, Type.BOAT, BOAT_MOVEMENT_SPEED, boatImage.getHeight(), boatImage.getWidth());
-        plane = new GameObject(WINDOW_X_SIZE - planeImage.getWidth(), 0, Type.PLANE, PLANE_MOVEMENT_SPEED, planeImage.getHeight(), planeImage.getWidth());
-        sea = new GameObject(0, WINDOW_Y_SIZE - SEA_HEIGHT, Type.SEA, 0, seaImage.getHeight(), seaImage.getWidth());
-        background = new GameObject(0, 0, Type.BACKGROUND, 0, backgroundImage.getHeight(), backgroundImage.getWidth());
+        boat = new GameObject(WINDOW_X_SIZE / 2,
+                WINDOW_Y_SIZE - SEA_HEIGHT,
+                Type.BOAT, BOAT_MOVEMENT_SPEED,
+                ScreenManager.boatImage.getHeight(),
+                ScreenManager.boatImage.getWidth());
+        plane = new GameObject(WINDOW_X_SIZE - ScreenManager.planeImage.getWidth(),
+                0,
+                Type.PLANE, PLANE_MOVEMENT_SPEED,
+                ScreenManager.planeImage.getHeight(),
+                ScreenManager.planeImage.getWidth());
+
         parachutists = new LinkedList<>();
-
         movementManager = new MovementManager();
-    }
-
-    public static GameData getInstance() {
-        if (instance == null) {
-            instance = new GameData();
-        }
-        return instance;
     }
 
     public void addParachutist(GameObject parachutist) {
@@ -126,46 +111,6 @@ public class GameData {
         this.currentParachuters = currentParachuters;
     }
 
-    public static BufferedImage getBoatImage() {
-        return boatImage;
-    }
-
-    public static void setBoatImage(BufferedImage boatImage) {
-        GameData.boatImage = boatImage;
-    }
-
-    public static BufferedImage getPlaneImage() {
-        return planeImage;
-    }
-
-    public static void setPlaneImage(BufferedImage planeImage) {
-        GameData.planeImage = planeImage;
-    }
-
-    public static BufferedImage getParachutistImage() {
-        return parachutistImage;
-    }
-
-    public static void setParachutistImage(BufferedImage parachutistImage) {
-        GameData.parachutistImage = parachutistImage;
-    }
-
-    public static BufferedImage getSeaImage() {
-        return seaImage;
-    }
-
-    public static void setSeaImage(BufferedImage seaImage) {
-        GameData.seaImage = seaImage;
-    }
-
-    public static BufferedImage getBackgroundImage() {
-        return backgroundImage;
-    }
-
-    public static void setBackgroundImage(BufferedImage backgroundImage) {
-        GameData.backgroundImage = backgroundImage;
-    }
-
     public GameObject getPlane() {
         return plane;
     }
@@ -180,22 +125,6 @@ public class GameData {
 
     public void setBoat(GameObject boat) {
         this.boat = boat;
-    }
-
-    public GameObject getSea() {
-        return sea;
-    }
-
-    public void setSea(GameObject sea) {
-        this.sea = sea;
-    }
-
-    public GameObject getBackground() {
-        return background;
-    }
-
-    public void setBackground(GameObject background) {
-        this.background = background;
     }
 
     public LinkedList<GameObject> getParachutists() {
