@@ -27,9 +27,6 @@ public class MovementManager {
         moveBoat();
     }
 
-    public void keyReleased(KeyEvent e) {
-    }
-
     public void moveParachutists() {
         GameData gameData = GameData.getInstance();
         GameObject boat = gameData.getBoat();

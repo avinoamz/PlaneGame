@@ -1,10 +1,6 @@
 
-import GameObjects.Type;
 import GameObjects.GameObject;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.LinkedList;
-import javax.imageio.ImageIO;
 
 /**
  *
@@ -57,12 +53,12 @@ public class GameData {
 
         boat = new GameObject(WINDOW_X_SIZE / 2,
                 WINDOW_Y_SIZE - SEA_HEIGHT,
-                Type.BOAT, BOAT_MOVEMENT_SPEED,
+                BOAT_MOVEMENT_SPEED,
                 ScreenManager.boatImage.getHeight(),
                 ScreenManager.boatImage.getWidth());
         plane = new GameObject(WINDOW_X_SIZE - ScreenManager.planeImage.getWidth(),
                 0,
-                Type.PLANE, PLANE_MOVEMENT_SPEED,
+                PLANE_MOVEMENT_SPEED,
                 ScreenManager.planeImage.getHeight(),
                 ScreenManager.planeImage.getWidth());
 

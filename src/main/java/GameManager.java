@@ -1,5 +1,4 @@
 
-import GameObjects.Type;
 import java.util.Random;
 import GameObjects.GameObject;
 
@@ -29,7 +28,7 @@ public class GameManager {
             createNewParachuter();
             paint();
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
             }
         }
@@ -51,7 +50,6 @@ public class GameManager {
                 GameObject parachutist = new GameObject(
                         gameData.getPlane().getX(),
                         gameData.getPlane().getY(),
-                        Type.PARACHUTIST,
                         GameData.PARACHUTIST_FALL_SPEED,
                         ScreenManager.parachutistImage.getHeight(),
                         ScreenManager.parachutistImage.getWidth()

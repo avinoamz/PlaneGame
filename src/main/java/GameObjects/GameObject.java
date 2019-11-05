@@ -8,12 +8,10 @@ public class GameObject {
 
     private int x, y, velocity;
     private int height, width;
-    private Type type;
 
-    public GameObject(int x, int y, Type type, int velocity, int height, int width) {
+    public GameObject(int x, int y, int velocity, int height, int width) {
         this.x = x;
         this.y = y;
-        this.type = type;
         this.velocity = velocity;
         this.height = height;
         this.width = width;
@@ -25,14 +23,6 @@ public class GameObject {
 
     public int getY() {
         return y;
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public int getVelocity() {
