@@ -94,7 +94,7 @@ public class ScreenManager extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        GameData.getInstance().getMovementManager().keyPressed(e);
+        GameData.getInstance().getInputHandler().keyPressed(e);
     }
 
     @Override

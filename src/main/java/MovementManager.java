@@ -5,20 +5,20 @@ import java.util.LinkedList;
 
 /**
  *
- * Responsible for moving the objects and managing thier interactions
+ * Responsible for moving the objects and managing their interactions
  */
 public class MovementManager {
 
-    // move the boat once the arrow keys are pressed
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
+    public void moveBoatLeft() {
+        setBoatVelocityAndMove(-GameData.BOAT_MOVEMENT_SPEED);
+    }
 
-        if (key == KeyEvent.VK_LEFT) {
-            GameData.getInstance().getBoat().setVelocity(-GameData.BOAT_MOVEMENT_SPEED);
-        }
-        if (key == KeyEvent.VK_RIGHT) {
-            GameData.getInstance().getBoat().setVelocity(GameData.BOAT_MOVEMENT_SPEED);
-        }
+    public void moveBoatRight() {
+        setBoatVelocityAndMove(GameData.BOAT_MOVEMENT_SPEED);
+    }
+
+    private void setBoatVelocityAndMove(int velocity) {
+        GameData.getInstance().getBoat().setVelocity(velocity);
         moveBoat();
     }
 
@@ -42,27 +42,35 @@ public class MovementManager {
 
     // move all the parachutists, and checks whether they are caught or drown
     public void moveParachutists() {
-        GameData gameData = GameData.getInstance();
-        GameObject boat = gameData.getBoat();
-        Rectangle boatRectangle = new Rectangle(boat.getX(), boat.getY() + (boat.getHeight() / 2), boat.getWidth(), boat.getHeight());
-        LinkedList<GameObject> parachutists = gameData.getParachutists();
+        LinkedList<GameObject> parachutists = GameData.getInstance().getParachutists();
 
         for (int i = 0; i < parachutists.size(); i++) {
             GameObject parachutist = parachutists.get(i);
-            int y = parachutist.getY();
-            y += parachutist.getVelocity();
-            parachutist.setY(y);
+            parachutist.setY(parachutist.getY() + parachutist.getVelocity());
 
-            Rectangle parachutistRectangle = new Rectangle(parachutist.getX(), parachutist.getY(), parachutist.getWidth(), parachutist.getHeight());
-
-            if (parachutistRectangle.intersects(boatRectangle)) {
-                gameData.removeCaughtParachutist(parachutist);
-                i--;
-            } else if (parachutist.getY() > GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT) {
-                gameData.removeDrownedParachutist(parachutist);
+            if (needToRemove(parachutist)) {
                 i--;
             }
         }
+    }
+
+    // checks whether the parachutists landed on the boat or drowned
+    private boolean needToRemove(GameObject parachutist) {
+        GameData gameData = GameData.getInstance();
+        GameObject boat = gameData.getBoat();
+        boolean needToRemove = false;
+
+        Rectangle boatRectangle = new Rectangle(boat.getX(), boat.getY() + (boat.getHeight() / 2), boat.getWidth(), boat.getHeight());
+        Rectangle parachutistRectangle = new Rectangle(parachutist.getX(), parachutist.getY(), parachutist.getWidth(), parachutist.getHeight());
+
+        if (parachutistRectangle.intersects(boatRectangle)) {
+            gameData.removeCaughtParachutist(parachutist);
+            needToRemove = true;
+        } else if (parachutist.getY() > GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT) {
+            gameData.removeDrownedParachutist(parachutist);
+            needToRemove = true;
+        }
+        return needToRemove;
     }
 
     // moves the plane

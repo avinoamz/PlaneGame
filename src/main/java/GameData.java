@@ -18,7 +18,7 @@ public class GameData {
     public static final int LIVES = 3;
     public static final int GAIN_POINTS = 10;
     public static final int PARACHUTIST_MOVEMENT_SPEED = 1;
-    public static final int BOAT_MOVEMENT_SPEED = 3;
+    public static final int BOAT_MOVEMENT_SPEED = 6;
     public static final int PLANE_MOVEMENT_SPEED = 1;
     public static final int WINDOW_X_SIZE = 1080;
     public static final int WINDOW_Y_SIZE = 720;
@@ -35,6 +35,7 @@ public class GameData {
     private LinkedList<GameObject> parachutists;
     private MovementManager movementManager;
     private ScreenManager screenManager;
+    private InputHandler inputHandler;
 
     public static GameData getInstance() {
         if (instance == null) {
@@ -67,6 +68,7 @@ public class GameData {
 
         movementManager = new MovementManager();
         screenManager = new ScreenManager();
+        inputHandler = new InputHandler();
     }
 
     public void addParachutist(GameObject parachutist) {
@@ -155,6 +157,14 @@ public class GameData {
 
     public void setScreenManager(ScreenManager screenManager) {
         this.screenManager = screenManager;
+    }
+
+    public InputHandler getInputHandler() {
+        return inputHandler;
+    }
+
+    public void setInputHandler(InputHandler inputHandler) {
+        this.inputHandler = inputHandler;
     }
 
 }
