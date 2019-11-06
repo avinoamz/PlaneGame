@@ -15,19 +15,16 @@ public class GameData {
     public final static String SEA_IMAGE = "/sea.png";
     public final static String BACKGROUND_IMAGE = "/background.png";
 
-    public static final String PARACHUTIST_CAUGHT = "PARACHUTIST_CAUGHT";
-    public static final String PARACHUTIST_DROWNED = "PARACHUTIST_DROWNED";
-    public static final String GAME_OVER = "GAME_OVER";
-
     public static final int LIVES = 3;
     public static final int GAIN_POINTS = 10;
-    public static final int PARACHUTIST_FALL_SPEED = 1;
+    public static final int PARACHUTIST_MOVEMENT_SPEED = 1;
     public static final int BOAT_MOVEMENT_SPEED = 3;
     public static final int PLANE_MOVEMENT_SPEED = 1;
     public static final int WINDOW_X_SIZE = 1080;
     public static final int WINDOW_Y_SIZE = 720;
     public static final int SEA_HEIGHT = 242;
     public static final int MAX_PARACHUTISTS = 3;
+    public static final String GAME_OVER = "GAME_OVER";
 
     private int lives;
     private int score;
@@ -54,7 +51,7 @@ public class GameData {
         boat = new GameObject(
                 WINDOW_X_SIZE / 2,
                 WINDOW_Y_SIZE - SEA_HEIGHT,
-                BOAT_MOVEMENT_SPEED,
+                0,
                 ScreenManager.boatImage.getHeight(),
                 ScreenManager.boatImage.getWidth(),
                 Type.BOAT);
@@ -77,13 +74,13 @@ public class GameData {
         currentParachuters++;
     }
 
-    public void parachuterDrowned(GameObject parachutist) {
+    public void removeDrownedParachutist(GameObject parachutist) {
         parachutists.remove(parachutist);
         currentParachuters--;
         lives--;
     }
 
-    public void parachuterCaught(GameObject parachutist) {
+    public void removeCaughtParachutist(GameObject parachutist) {
         parachutists.remove(parachutist);
         currentParachuters--;
         score += GAIN_POINTS;
@@ -93,8 +90,6 @@ public class GameData {
         LinkedList<GameObject> drawables = (LinkedList<GameObject>) parachutists.clone();
         drawables.addFirst(getPlane());
         drawables.addFirst(getBoat());
-        System.out.println(drawables);
-        System.out.println(parachutists);
         return drawables;
     }
 

@@ -14,10 +14,10 @@ public class MovementManager {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            GameData.getInstance().getBoat().setVelocity(-4);
+            GameData.getInstance().getBoat().setVelocity(-GameData.BOAT_MOVEMENT_SPEED);
         }
         if (key == KeyEvent.VK_RIGHT) {
-            GameData.getInstance().getBoat().setVelocity(4);
+            GameData.getInstance().getBoat().setVelocity(GameData.BOAT_MOVEMENT_SPEED);
         }
         moveBoat();
     }
@@ -56,10 +56,10 @@ public class MovementManager {
             Rectangle parachutistRectangle = new Rectangle(parachutist.getX(), parachutist.getY(), parachutist.getWidth(), parachutist.getHeight());
 
             if (parachutistRectangle.intersects(boatRectangle)) {
-                gameData.parachuterCaught(parachutist);
+                gameData.removeCaughtParachutist(parachutist);
                 i--;
             } else if (parachutist.getY() > GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT) {
-                gameData.parachuterDrowned(parachutist);
+                gameData.removeDrownedParachutist(parachutist);
                 i--;
             }
         }

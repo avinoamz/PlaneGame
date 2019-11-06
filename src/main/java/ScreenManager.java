@@ -58,10 +58,11 @@ public class ScreenManager extends JPanel implements KeyListener {
         g2d.drawImage(seaImage, 0, GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT, this);
 
         GameData gameData = GameData.getInstance();
-        for (GameObject gameObject : gameData.getDrawables()) {
+
+        gameData.getDrawables().forEach((gameObject) -> {
             g2d.drawImage(getImageByType(gameObject), gameObject.getX(), gameObject.getY(), this);
-        }
-        
+        });
+
         g.setFont(monoFont);
         g.drawString("Lives: " + gameData.getLives(), 0, 220);
         g.drawString("Score: " + gameData.getScore(), 0, 250);

@@ -8,14 +8,12 @@ import java.util.Random;
 public class GameManager {
 
     private final GameData gameData;
-//    private final ScreenManager screenManager;
     private final Random rand;
 
     // Create all the base objects and start the game
     public GameManager() {
         gameData = GameData.getInstance();
         rand = new Random();
-//        screenManager = new ScreenManager();
 
         gameLoop();
     }
@@ -49,7 +47,7 @@ public class GameManager {
                 GameObject parachutist = new GameObject(
                         gameData.getPlane().getX(),
                         gameData.getPlane().getY(),
-                        GameData.PARACHUTIST_FALL_SPEED,
+                        GameData.PARACHUTIST_MOVEMENT_SPEED,
                         ScreenManager.parachutistImage.getHeight(),
                         ScreenManager.parachutistImage.getWidth(),
                         Type.PARACHUTIST);
