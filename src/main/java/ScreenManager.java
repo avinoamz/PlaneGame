@@ -16,7 +16,6 @@ import javax.imageio.ImageIO;
  */
 public class ScreenManager extends JPanel implements KeyListener {
 
-    private final GameData gameData;
     private final JFrame frame;
     private final Font monoFont;
     public static BufferedImage boatImage;
@@ -40,7 +39,6 @@ public class ScreenManager extends JPanel implements KeyListener {
     }
 
     public ScreenManager() {
-        gameData = GameData.getInstance();
         monoFont = new Font("Monospaced", Font.BOLD | Font.ITALIC, 36);
         frame = new JFrame("Parachutist's");
         frame.setSize(GameData.WINDOW_X_SIZE, GameData.WINDOW_Y_SIZE);
@@ -59,17 +57,28 @@ public class ScreenManager extends JPanel implements KeyListener {
         g2d.drawImage(backgroundImage, 0, 0, this);
         g2d.drawImage(seaImage, 0, GameData.WINDOW_Y_SIZE - GameData.SEA_HEIGHT, this);
 
-        GameObject plane = gameData.getPlane();
-        GameObject boat = gameData.getBoat();
-        g2d.drawImage(planeImage, plane.getX(), plane.getY(), this);
-        g2d.drawImage(boatImage, boat.getX(), boat.getY(), this);
-
-        for (GameObject gameObject : gameData.getParachutists()) {
-            g2d.drawImage(parachutistImage, gameObject.getX(), gameObject.getY(), this);
+        GameData gameData = GameData.getInstance();
+        for (GameObject gameObject : gameData.getDrawables()) {
+            g2d.drawImage(getImageByType(gameObject), gameObject.getX(), gameObject.getY(), this);
         }
+        
         g.setFont(monoFont);
         g.drawString("Lives: " + gameData.getLives(), 0, 220);
         g.drawString("Score: " + gameData.getScore(), 0, 250);
+    }
+
+    private BufferedImage getImageByType(GameObject gameObject) {
+        switch (gameObject.getType()) {
+            case PARACHUTIST:
+                return parachutistImage;
+            case BOAT:
+                return boatImage;
+            case PLANE:
+                return planeImage;
+            default:
+                System.out.println("Unknown type");
+                return null;
+        }
     }
 
     // display a message when the game is over
@@ -84,7 +93,7 @@ public class ScreenManager extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        gameData.getMovementManager().keyPressed(e);
+        GameData.getInstance().getMovementManager().keyPressed(e);
     }
 
     @Override

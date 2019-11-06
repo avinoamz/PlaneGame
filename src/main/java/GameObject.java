@@ -7,13 +7,15 @@ public class GameObject {
 
     private int x, y, velocity;
     private int height, width;
+    private Type type;
 
-    public GameObject(int x, int y, int velocity, int height, int width) {
+    public GameObject(int x, int y, int velocity, int height, int width, Type type) {
         this.x = x;
         this.y = y;
         this.velocity = velocity;
         this.height = height;
         this.width = width;
+        this.type = type;
     }
 
     public int getX() {
@@ -54,6 +56,14 @@ public class GameObject {
 
     public void setWidth(int width) {
         this.width = width;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 
 }

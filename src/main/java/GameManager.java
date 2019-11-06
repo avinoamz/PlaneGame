@@ -8,14 +8,14 @@ import java.util.Random;
 public class GameManager {
 
     private final GameData gameData;
-    private final ScreenManager screenManager;
+//    private final ScreenManager screenManager;
     private final Random rand;
 
     // Create all the base objects and start the game
     public GameManager() {
         gameData = GameData.getInstance();
         rand = new Random();
-        screenManager = new ScreenManager();
+//        screenManager = new ScreenManager();
 
         gameLoop();
     }
@@ -51,8 +51,8 @@ public class GameManager {
                         gameData.getPlane().getY(),
                         GameData.PARACHUTIST_FALL_SPEED,
                         ScreenManager.parachutistImage.getHeight(),
-                        ScreenManager.parachutistImage.getWidth()
-                );
+                        ScreenManager.parachutistImage.getWidth(),
+                        Type.PARACHUTIST);
                 gameData.addParachutist(parachutist);
             }
         }
@@ -60,12 +60,12 @@ public class GameManager {
 
     // paiting the objects on the screen
     public void paint() {
-        screenManager.repaint();
+        gameData.getScreenManager().repaint();
     }
 
     // finish the game
     public void gameOver() {
-        screenManager.gameOver();
+        gameData.getScreenManager().gameOver();
     }
 
     public static void main(String[] args) {

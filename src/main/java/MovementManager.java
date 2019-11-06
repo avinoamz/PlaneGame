@@ -37,6 +37,7 @@ public class MovementManager {
             }
         }
         boat.setX(x);
+        GameData.getInstance().getScreenManager().repaint();
     }
 
     // move all the parachutists, and checks whether they are caught or drown

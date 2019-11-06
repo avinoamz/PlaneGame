@@ -37,6 +37,7 @@ public class GameData {
     private GameObject boat;
     private LinkedList<GameObject> parachutists;
     private MovementManager movementManager;
+    private ScreenManager screenManager;
 
     public static GameData getInstance() {
         if (instance == null) {
@@ -50,19 +51,25 @@ public class GameData {
         this.score = 0;
         this.currentParachuters = 0;
 
-        boat = new GameObject(WINDOW_X_SIZE / 2,
+        boat = new GameObject(
+                WINDOW_X_SIZE / 2,
                 WINDOW_Y_SIZE - SEA_HEIGHT,
                 BOAT_MOVEMENT_SPEED,
                 ScreenManager.boatImage.getHeight(),
-                ScreenManager.boatImage.getWidth());
-        plane = new GameObject(WINDOW_X_SIZE - ScreenManager.planeImage.getWidth(),
+                ScreenManager.boatImage.getWidth(),
+                Type.BOAT);
+        plane = new GameObject(
+                WINDOW_X_SIZE - ScreenManager.planeImage.getWidth(),
                 0,
                 PLANE_MOVEMENT_SPEED,
                 ScreenManager.planeImage.getHeight(),
-                ScreenManager.planeImage.getWidth());
+                ScreenManager.planeImage.getWidth(),
+                Type.PLANE);
 
         parachutists = new LinkedList<>();
+
         movementManager = new MovementManager();
+        screenManager = new ScreenManager();
     }
 
     public void addParachutist(GameObject parachutist) {
@@ -80,6 +87,15 @@ public class GameData {
         parachutists.remove(parachutist);
         currentParachuters--;
         score += GAIN_POINTS;
+    }
+
+    public LinkedList<GameObject> getDrawables() {
+        LinkedList<GameObject> drawables = (LinkedList<GameObject>) parachutists.clone();
+        drawables.addFirst(getPlane());
+        drawables.addFirst(getBoat());
+        System.out.println(drawables);
+        System.out.println(parachutists);
+        return drawables;
     }
 
     public int getLives() {
@@ -136,6 +152,14 @@ public class GameData {
 
     public void setMovementManager(MovementManager movementManager) {
         this.movementManager = movementManager;
+    }
+
+    public ScreenManager getScreenManager() {
+        return screenManager;
+    }
+
+    public void setScreenManager(ScreenManager screenManager) {
+        this.screenManager = screenManager;
     }
 
 }
