@@ -9,12 +9,6 @@ public class GameData {
 
     private static GameData instance = null;
 
-    public final static String BOAT_IMAGE = "/boat.png";
-    public final static String PLANE_IMAGE = "/plane.png";
-    public final static String PARACHUTIST_IMAGE = "/parachutist.png";
-    public final static String SEA_IMAGE = "/sea.png";
-    public final static String BACKGROUND_IMAGE = "/background.png";
-
     public static final int LIVES = 3;
     public static final int GAIN_POINTS = 10;
     public static final int PARACHUTIST_MOVEMENT_SPEED = 1;
@@ -34,8 +28,9 @@ public class GameData {
     private GameObject boat;
     private LinkedList<GameObject> parachutists;
     private MovementManager movementManager;
-    private ScreenManager screenManager;
     private InputHandler inputHandler;
+    private ScreenManager screenManager;
+    private ImageHandler imageHandler;
 
     public static GameData getInstance() {
         if (instance == null) {
@@ -49,26 +44,28 @@ public class GameData {
         this.score = 0;
         this.currentParachuters = 0;
 
+        movementManager = new MovementManager();
+        imageHandler = new ImageHandler();
+        screenManager = new ScreenManager();
+        inputHandler = new InputHandler();
+
         boat = new GameObject(
                 WINDOW_X_SIZE / 2,
                 WINDOW_Y_SIZE - SEA_HEIGHT,
                 0,
-                ScreenManager.boatImage.getHeight(),
-                ScreenManager.boatImage.getWidth(),
+                imageHandler.getBoatImage().getHeight(),
+                imageHandler.getBoatImage().getWidth(),
                 Type.BOAT);
         plane = new GameObject(
-                WINDOW_X_SIZE - ScreenManager.planeImage.getWidth(),
+                WINDOW_X_SIZE - imageHandler.getPlaneImage().getWidth(),
                 0,
                 PLANE_MOVEMENT_SPEED,
-                ScreenManager.planeImage.getHeight(),
-                ScreenManager.planeImage.getWidth(),
+                imageHandler.getPlaneImage().getHeight(),
+                imageHandler.getPlaneImage().getWidth(),
                 Type.PLANE);
 
         parachutists = new LinkedList<>();
 
-        movementManager = new MovementManager();
-        screenManager = new ScreenManager();
-        inputHandler = new InputHandler();
     }
 
     public void addParachutist(GameObject parachutist) {
@@ -165,6 +162,14 @@ public class GameData {
 
     public void setInputHandler(InputHandler inputHandler) {
         this.inputHandler = inputHandler;
+    }
+
+    public ImageHandler getImageHandler() {
+        return imageHandler;
+    }
+
+    public void setImageHandler(ImageHandler imageHandler) {
+        this.imageHandler = imageHandler;
     }
 
 }

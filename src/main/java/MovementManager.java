@@ -27,7 +27,7 @@ public class MovementManager {
         int x = boat.getX();
         int velocity = boat.getVelocity();
         if (velocity > 0) {
-            if (x < GameData.WINDOW_X_SIZE - ScreenManager.boatImage.getWidth()) {
+            if (x < GameData.WINDOW_X_SIZE - boat.getWidth()) {
                 x += velocity;
             }
         } else if (velocity < 0) {
@@ -78,7 +78,7 @@ public class MovementManager {
         int x = plane.getX();
         x -= plane.getVelocity();
         if (x < 0) {
-            x = GameData.WINDOW_X_SIZE - ScreenManager.planeImage.getWidth();
+            x = GameData.WINDOW_X_SIZE - plane.getWidth();
         }
         plane.setX(x);
     }
