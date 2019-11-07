@@ -7,9 +7,14 @@ import java.awt.event.KeyEvent;
  */
 public class InputHandler {
 
+    MovementManager movementManager;
+
+    public InputHandler(MovementManager movementManager) {
+        this.movementManager = movementManager;
+    }
+
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        MovementManager movementManager = GameData.getInstance().getMovementManager();
 
         if (key == KeyEvent.VK_LEFT) {
             movementManager.moveBoatLeft();

@@ -4,11 +4,6 @@ import static java.awt.image.ImageObserver.ABORT;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author avino
@@ -41,9 +36,9 @@ public class ImageHandler {
         }
     }
 
-    public void repaint() {
-        GameData.getInstance().getScreenManager().repaint();
-    }
+//    public void repaint() {
+//        GameData.getInstance().getScreenManager().repaint();
+//    }
 
     public BufferedImage getImageByType(GameObject gameObject) {
         switch (gameObject.getType()) {
