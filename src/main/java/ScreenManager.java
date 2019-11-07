@@ -24,7 +24,7 @@ public class ScreenManager extends JPanel implements KeyListener {
     public ScreenManager(ImageHandler imageHandler, InputHandler inputHandler) {
         monoFont = new Font("Monospaced", Font.BOLD | Font.ITALIC, 36);
         frame = new JFrame("Parachutist's");
-        frame.setSize(GameManager.WINDOW_X_SIZE, GameManager.WINDOW_Y_SIZE);
+        frame.setSize(Information.WINDOW_X_SIZE, Information.WINDOW_Y_SIZE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(this);
         frame.addKeyListener(this);
@@ -47,7 +47,7 @@ public class ScreenManager extends JPanel implements KeyListener {
         Graphics2D g2d = (Graphics2D) g;
 
         g2d.drawImage(imageHandler.getBackgroundImage(), 0, 0, this);
-        g2d.drawImage(imageHandler.getSeaImage(), 0, GameManager.WINDOW_Y_SIZE - GameManager.SEA_HEIGHT, this);
+        g2d.drawImage(imageHandler.getSeaImage(), 0, Information.WINDOW_Y_SIZE - Information.SEA_HEIGHT, this);
 
         gameObjects.forEach((gameObject) -> {
             g2d.drawImage(imageHandler.getImageByType(gameObject), gameObject.getX(), gameObject.getY(), this);
@@ -60,7 +60,7 @@ public class ScreenManager extends JPanel implements KeyListener {
 
     // display a message when the game is over
     public void gameOver() {
-        JOptionPane.showMessageDialog(this, GameManager.GAME_OVER, GameManager.GAME_OVER, JOptionPane.YES_NO_OPTION);
+        JOptionPane.showMessageDialog(this, Information.GAME_OVER, Information.GAME_OVER, JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);
     }
 

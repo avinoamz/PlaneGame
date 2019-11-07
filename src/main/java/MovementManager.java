@@ -10,7 +10,7 @@ public class MovementManager {
 
     private final GameObject plane;
     private final GameObject boat;
-    private LinkedList<GameObject> parachutists;
+    private final LinkedList<GameObject> parachutists;
     private final Information information;
 
     public MovementManager(GameObject plane, GameObject boat, LinkedList<GameObject> parachutists, Information information) {
@@ -21,11 +21,11 @@ public class MovementManager {
     }
 
     public void moveBoatLeft() {
-        setBoatVelocityAndMove(-GameManager.BOAT_MOVEMENT_SPEED);
+        setBoatVelocityAndMove(-Information.BOAT_MOVEMENT_SPEED);
     }
 
     public void moveBoatRight() {
-        setBoatVelocityAndMove(GameManager.BOAT_MOVEMENT_SPEED);
+        setBoatVelocityAndMove(Information.BOAT_MOVEMENT_SPEED);
     }
 
     private void setBoatVelocityAndMove(int velocity) {
@@ -38,7 +38,7 @@ public class MovementManager {
         int x = boat.getX();
         int velocity = boat.getVelocity();
         if (velocity > 0) {
-            if (x < GameManager.WINDOW_X_SIZE - boat.getWidth()) {
+            if (x < Information.WINDOW_X_SIZE - boat.getWidth()) {
                 x += velocity;
             }
         } else if (velocity < 0) {
@@ -47,7 +47,6 @@ public class MovementManager {
             }
         }
         boat.setX(x);
-//        GameData.getInstance().getScreenManager().repaint();
     }
 
     // move all the parachutists, and checks whether they are caught or drown
@@ -65,7 +64,7 @@ public class MovementManager {
                 information.parachuterCaught();
                 parachutists.remove(parachutist);
                 i--;
-            } else if (parachutist.getY() > GameManager.WINDOW_Y_SIZE - GameManager.SEA_HEIGHT) {
+            } else if (parachutist.getY() > Information.WINDOW_Y_SIZE - Information.SEA_HEIGHT) {
                 information.parachuterDrowned();
                 parachutists.remove(parachutist);
                 i--;
@@ -78,7 +77,7 @@ public class MovementManager {
         int x = plane.getX();
         x -= plane.getVelocity();
         if (x < 0) {
-            x = GameManager.WINDOW_X_SIZE - plane.getWidth();
+            x = Information.WINDOW_X_SIZE - plane.getWidth();
         }
         plane.setX(x);
     }

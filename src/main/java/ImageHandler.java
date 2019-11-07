@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 /**
  *
- * @author avino
+ * Class to load the images
  */
 public class ImageHandler {
 
@@ -35,10 +35,6 @@ public class ImageHandler {
             System.exit(ABORT);
         }
     }
-
-//    public void repaint() {
-//        GameData.getInstance().getScreenManager().repaint();
-//    }
 
     public BufferedImage getImageByType(GameObject gameObject) {
         switch (gameObject.getType()) {
