@@ -39,7 +39,7 @@ public class MovementManager implements MovementInterface {
     }
 
     // moves the boat, controlled by the player
-    public void moveBoat() {
+    private void moveBoat() {
         int x = boat.getX();
         int velocity = boat.getVelocity();
         if (velocity > 0) {
