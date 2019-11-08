@@ -1,4 +1,11 @@
+package Model;
 
+import Screen.ImageHandler;
+import Movement.InputHandler;
+import Movement.MovementInterface;
+import Movement.MovementManager;
+import Screen.ScreenInterface;
+import Screen.ScreenManager;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -10,13 +17,12 @@ public class GameManager {
 
     private final Random rand;
     private final Information information;
-
     private final GameObject plane;
     private final GameObject boat;
     private final LinkedList<GameObject> parachutists;
-    private final MovementManager movementManager;
+    private final MovementInterface movementInterface;
     private final InputHandler inputHandler;
-    private final ScreenManager screenManager;
+    private final ScreenInterface screenInterface;
     private final ImageHandler imageHandler;
 
     // Create all the base objects and start the game
@@ -40,9 +46,9 @@ public class GameManager {
                 imageHandler.getPlaneImage().getWidth(),
                 Type.PLANE);
         parachutists = new LinkedList<>();
-        movementManager = new MovementManager(plane, boat, parachutists, information);
-        inputHandler = new InputHandler(movementManager);
-        screenManager = new ScreenManager(imageHandler, inputHandler);
+        movementInterface = new MovementManager(plane, boat, parachutists, information);
+        inputHandler = new InputHandler(movementInterface);
+        screenInterface = new ScreenManager(imageHandler, inputHandler);
 
         gameLoop();
     }
@@ -54,7 +60,7 @@ public class GameManager {
             createNewParachuter();
             paint();
             try {
-                Thread.sleep(20);
+                Thread.sleep(10);
             } catch (InterruptedException e) {
             }
         }
@@ -63,8 +69,8 @@ public class GameManager {
 
     // updates objects location and remove if needed
     public void moveObjectsAndRemoveIfNeeded() {
-        movementManager.movePlane();
-        movementManager.moveParachutists();
+        movementInterface.movePlane();
+        movementInterface.moveParachutists();
     }
 
     // randomly create new parachutists
@@ -87,12 +93,12 @@ public class GameManager {
 
     // paiting the objects, lives and score on the screen
     public void paint() {
-        screenManager.drawObjects(getDrawables(), information.getLives(), information.getScore());
+        screenInterface.drawObjects(getDrawables(), information.getLives(), information.getScore());
     }
 
     // finish the game
     public void gameOver() {
-        screenManager.gameOver();
+        screenInterface.gameOver();
     }
 
     public void addParachutist(GameObject parachutist) {

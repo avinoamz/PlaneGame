@@ -1,4 +1,7 @@
+package Movement;
 
+import Model.GameObject;
+import Model.Information;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
@@ -6,7 +9,7 @@ import java.util.LinkedList;
  *
  * Responsible for moving the objects and managing their interactions
  */
-public class MovementManager {
+public class MovementManager implements MovementInterface {
 
     private final GameObject plane;
     private final GameObject boat;
@@ -20,10 +23,12 @@ public class MovementManager {
         this.information = information;
     }
 
+    @Override
     public void moveBoatLeft() {
         setBoatVelocityAndMove(-Information.BOAT_MOVEMENT_SPEED);
     }
 
+    @Override
     public void moveBoatRight() {
         setBoatVelocityAndMove(Information.BOAT_MOVEMENT_SPEED);
     }
@@ -50,6 +55,7 @@ public class MovementManager {
     }
 
     // move all the parachutists, and checks whether they are caught or drown
+    @Override
     public void moveParachutists() {
 
         Rectangle boatRectangle = new Rectangle(boat.getX(), boat.getY() + (boat.getHeight() / 2), boat.getWidth(), boat.getHeight());
@@ -73,6 +79,7 @@ public class MovementManager {
     }
 
     // moves the plane
+    @Override
     public void movePlane() {
         int x = plane.getX();
         x -= plane.getVelocity();

@@ -1,3 +1,4 @@
+package Movement;
 
 import java.awt.event.KeyEvent;
 
@@ -7,20 +8,20 @@ import java.awt.event.KeyEvent;
  */
 public class InputHandler {
 
-    MovementManager movementManager;
+    MovementInterface movementInterface;
 
-    public InputHandler(MovementManager movementManager) {
-        this.movementManager = movementManager;
+    public InputHandler(MovementInterface movementInterface) {
+        this.movementInterface = movementInterface;
     }
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_LEFT) {
-            movementManager.moveBoatLeft();
+            movementInterface.moveBoatLeft();
         }
         if (key == KeyEvent.VK_RIGHT) {
-            movementManager.moveBoatRight();
+            movementInterface.moveBoatRight();
         }
     }
 

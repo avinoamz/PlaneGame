@@ -1,4 +1,8 @@
+package Screen;
 
+import Model.GameObject;
+import Movement.InputHandler;
+import Model.Information;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -12,7 +16,7 @@ import java.util.LinkedList;
 /**
  * Responsible for all the drawing that appear on screen
  */
-public class ScreenManager extends JPanel implements KeyListener {
+public class ScreenManager extends JPanel implements KeyListener, ScreenInterface {
 
     private final JFrame frame;
     private final Font monoFont;
@@ -33,6 +37,7 @@ public class ScreenManager extends JPanel implements KeyListener {
         this.inputHandler = inputHandler;
     }
 
+    @Override
     public void drawObjects(LinkedList<GameObject> gameObjects, int lives, int score) {
         this.gameObjects = gameObjects;
         this.lives = lives;
@@ -59,6 +64,7 @@ public class ScreenManager extends JPanel implements KeyListener {
     }
 
     // display a message when the game is over
+    @Override
     public void gameOver() {
         JOptionPane.showMessageDialog(this, Information.GAME_OVER, Information.GAME_OVER, JOptionPane.YES_NO_OPTION);
         System.exit(ABORT);

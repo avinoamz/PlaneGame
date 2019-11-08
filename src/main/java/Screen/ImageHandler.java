@@ -1,4 +1,6 @@
+package Screen;
 
+import Model.GameObject;
 import java.awt.image.BufferedImage;
 import static java.awt.image.ImageObserver.ABORT;
 import java.io.IOException;
@@ -22,7 +24,7 @@ public class ImageHandler {
     private String SEA_IMAGE = "/sea.png";
     private String BACKGROUND_IMAGE = "/background.png";
 
-    ImageHandler() {
+    public ImageHandler() {
         try {
             boatImage = ImageIO.read(ImageHandler.class.getResourceAsStream(BOAT_IMAGE));
             planeImage = ImageIO.read(ImageHandler.class.getResourceAsStream(PLANE_IMAGE));

@@ -19,7 +19,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>GameManager</mainClass>
+                            <mainClass>Model.GameManager</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
